@@ -1,780 +1,147 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Happy Birthday My Bujji ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Bujji ❤️</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   background: #000;
   color: #fff;
   font-family: Arial, sans-serif;
-  overflow: hidden;
-}
-
-/* =========================
-   START SCREEN
-========================= */
-
-#startScreen {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at center, #300018 0%, #000 65%);
-  z-index: 9999;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   text-align: center;
-  padding: 20px;
 }
 
-.startContent {
-  animation: heartbeat 2s infinite;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
 }
 
-#startScreen h1 {
-  color: #ff4da6;
-  font-size: 42px;
-  margin-bottom: 15px;
-  text-shadow: 0 0 20px #ff4da6;
-}
-
-#startScreen p {
-  font-size: 18px;
-  color: #ddd;
-  margin-bottom: 30px;
-}
-
-#startBtn {
-  background: #ff4da6;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 16px 35px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 0 25px #ff4da6;
-  transition: 0.3s;
-}
-
-#startBtn:hover {
-  transform: scale(1.08);
-  background: #ff69b4;
-}
-
-@keyframes heartbeat {
-  0%, 100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.03);
-  }
-}
-
-/* =========================
-   SLIDES
-========================= */
-
-#slides {
+img {
   width: 100%;
-  height: 100vh;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  padding: 20px;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transition:
-    opacity 1.5s ease,
-    visibility 1.5s ease;
-}
-
-.slide.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.slide img {
-  width: 90%;
-  max-width: 500px;
-  max-height: 55vh;
-
-  object-fit: contain;
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 0 20px #ff4da6,
-    0 0 50px rgba(255, 77, 166, 0.35);
-}
-
-.text {
-  margin-top: 20px;
-
-  max-width: 700px;
-
-  font-size: 18px;
-  line-height: 1.6;
-
-  white-space: pre-line;
-
-  padding: 10px;
-
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-}
-
-.counter {
-  position: absolute;
-  bottom: 20px;
-
-  font-size: 15px;
-
-  color: #aaa;
-}
-
-/* =========================
-   PROPOSAL POPUP
-========================= */
-
-#proposalPopup {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,0.93);
-
-  display: none;
-
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-
-  padding: 20px;
-
-  z-index: 5000;
-}
-
-#proposalPopup h1 {
-  font-size: 36px;
-
-  color: #ff4da6;
-
-  text-shadow:
-    0 0 10px #ff4da6,
-    0 0 30px #ff4da6;
-
-  animation: heartbeat 1.5s infinite;
-}
-
-#proposalPopup p {
-  color: #fff;
-}
-
-#proposalPopup button {
-  margin: 10px;
-
-  padding: 14px 30px;
-
-  font-size: 20px;
-
-  border: none;
-
+  height: auto;
   border-radius: 12px;
-
-  cursor: pointer;
+  box-shadow: 0 0 15px #ff4da6;
+  margin-bottom: 20px;
 }
 
-#yesBtn {
-  background: #ff4da6;
-  color: #fff;
-
-  box-shadow: 0 0 20px #ff4da6;
+h1 {
+  color: #ff4da6;
+  font-size: 30px;
+  margin-top: 20px;
 }
 
-#noBtn {
-  background: #444;
-  color: #fff;
+h2 {
+  color: #ff4da6;
+  font-size: 22px;
 }
 
-/* =========================
-   ROSES
-========================= */
-
-.rose {
-  position: fixed;
-
-  width: 45px;
-  height: 45px;
-
-  background-image: url("https://i.imgur.com/1XqVZ4R.png");
-
-  background-size: cover;
-  background-position: center;
-
-  pointer-events: none;
-
-  animation: fall 4s linear forwards;
-
-  z-index: 10000;
+.letter {
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  text-align: left;
+  line-height: 1.6;
+  box-shadow: 0 0 10px #ff4da6;
 }
 
-@keyframes fall {
-
-  0% {
-    transform:
-      translateY(-60px)
-      rotate(0deg)
-      scale(0.7);
-
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    transform:
-      translateY(110vh)
-      rotate(360deg)
-      scale(1);
-
-    opacity: 0;
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-  #startScreen h1 {
-    font-size: 32px;
-  }
-
-  #startScreen p {
-    font-size: 16px;
-  }
-
-  #startBtn {
-    font-size: 18px;
-    padding: 14px 28px;
-  }
-
-  .slide img {
-    width: 92%;
-    max-height: 45vh;
-  }
-
-  .text {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  #proposalPopup h1 {
-    font-size: 28px;
-  }
+audio {
+  width: 100%;
+  margin-top: 20px;
+  outline: none;
+  border-radius: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     BACKGROUND MUSIC
-========================= -->
+<div class="container">
 
-<audio id="bg-music" loop preload="auto">
-  <source src="music/birthday.mp3" type="audio/mpeg">
+<h1>Happy Birthday My Bujji ❤️</h1>
+
+<!-- Background Music -->
+<audio controls autoplay loop>
+  <source src="/assets/audio.mp3" type="audio/mpeg">
 </audio>
 
+<!-- IMAGES -->
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/caf8f6d0e52903c896b1631514ad9a2df9b5e7ad/dhanya.1.jpeg" alt="Dhanya 1">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.2.jpeg" alt="Dhanya 2">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.3.jpeg" alt="Dhanya 3">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.4.jpeg" alt="Dhanya 4">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.5.jpeg" alt="Dhanya 5">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.6.jpeg" alt="Dhanya 6">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.7.jpeg" alt="Dhanya 7">
+<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.8.jpeg" alt="Dhanya 8">
 
-<!-- =========================
-     START SCREEN
-========================= -->
+<!-- LETTER 1 -->
+<div class="letter">
+<h2>Letter 1 ❤️</h2>
+<p>
+Hi Bujii,<br><br>
+Happy Birthday. I have dreamt many years ago this would happen.  
+When I saw you in university for the first time, I felt you are my future wife.  
+It started on May 21st and it continues. I love you so much.  
+I know you got hurt. Sorry… still I love you so much.<br><br>
 
-<div id="startScreen">
+I don’t know how to tell everything.  
+I know how many papers I wasted trying to explain my feelings.  
+I filled you in every inch of my heart.  
+I think about you always.  
+I wait for your call.  
+I pray to God every day to give you to me.<br><br>
 
-  <div class="startContent">
-
-    <h1>For My Bujji ❤️</h1>
-
-    <p>
-      I made something special for you...
-      <br>
-      Tap below to begin ❤️
-    </p>
-
-    <button id="startBtn">
-      Tap to Begin ❤️
-    </button>
-
-  </div>
-
+Don’t laugh at my grammar mistakes.  
+When I see you, my heart is full of joy.  
+When you finish your lunch, I get disappointed because I want more time with you.  
+I want to tell you: eat slowly… speak with me some more time.  
+I am dying here to talk with you, but I stop myself.
+</p>
 </div>
 
-
-<!-- =========================
-     SLIDES
-========================= -->
-
-<div id="slides">
-
-  <!-- SLIDE 1 -->
-
-  <div class="slide active">
-
-    <img src="images/dhanya.1.jpeg">
-
-    <div class="text">
-Hi Bujji,
-
-Happy Birthday. I dreamt many years ago this moment would come.
-
-When I first saw you at university,
-I felt you were my future wife.
-    </div>
-
-    <div class="counter">1 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 2 -->
-
-  <div class="slide">
-
-    <img src="images/d.2.jpeg">
-
-    <div class="text">
-It started on May 21st and it continues.
-
-I love you so much.
-
-I know you got hurt,
-and I am truly sorry.
-    </div>
-
-    <div class="counter">2 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 3 -->
-
-  <div class="slide">
-
-    <img src="images/d.3.jpeg">
-
-    <div class="text">
-Still, I love you so much.
-
-I don’t know how to tell everything.
-
-I know how many papers I wasted
-trying to explain my feelings.
-    </div>
-
-    <div class="counter">3 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 4 -->
-
-  <div class="slide">
-
-    <img src="images/d.4.jpeg">
-
-    <div class="text">
-I filled you in every inch of my heart.
-
-I think about you always.
-
-I wait for your call.
-
-I pray to God to give you to me.
-    </div>
-
-    <div class="counter">4 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 5 -->
-
-  <div class="slide">
-
-    <img src="images/d.5.jpeg">
-
-    <div class="text">
-Don’t laugh at my grammar mistakes.
-
-When I see you,
-my heart is full of joy.
-
-When you finish your lunch,
-I feel disappointed because I want more time with you.
-    </div>
-
-    <div class="counter">5 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 6 -->
-
-  <div class="slide">
-
-    <img src="images/d.6.jpeg">
-
-    <div class="text">
-I want to tell you:
-
-Eat slowly.
-Speak with me some more time.
-
-I am dying here to talk with you,
-but I stop myself.
-    </div>
-
-    <div class="counter">6 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 7 -->
-
-  <div class="slide">
-
-    <img src="images/d.7.jpeg">
-
-    <div class="text">
-Please give me a chance, Bujji.
-
-Don’t think I am begging.
-
-I love you so much.
-
-I will never disappoint you.
-    </div>
-
-    <div class="counter">7 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 8 -->
-
-  <div class="slide">
-
-    <img src="images/d.8.jpeg">
-
-    <div class="text">
-I will be loyal to you.
-
-I will always speak the truth.
-
-You are my choice in everything.
-
-We will build a life together.
-    </div>
-
-    <div class="counter">8 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 9 -->
-
-  <div class="slide">
-
-    <img src="images/d.9.jpeg">
-
-    <div class="text">
-We will grow together.
-
-I want to be with you every time,
-
-to see you,
-to listen to you.
-
-I pray to God every day
-to give you some feelings for me.
-    </div>
-
-    <div class="counter">9 / 10</div>
-
-  </div>
-
-
-  <!-- SLIDE 10 -->
-
-  <div class="slide">
-
-    <img src="images/d.10.jpeg">
-
-    <div class="text">
-I love you, Bujji.
-
-Please give me a chance, my heroine.
-
-Happy Birthday, Bujji.
-
-Don’t think I am too mature—
-my inner child wrote this.
-
-Karthik ❤️
-    </div>
-
-    <div class="counter">10 / 10</div>
-
-  </div>
-
+<!-- LETTER 2 -->
+<div class="letter">
+<h2>Letter 2 ❤️</h2>
+<p>
+Please give me a chance, Bujji.  
+Don’t think I am begging.  
+I love you so much.  
+I will never disappoint you.  
+I will be loyal to you.  
+I will always speak the truth.  
+You are my choice in everything.<br><br>
+
+We will build a life together.  
+We will grow together.  
+I want to be with you every time.  
+I want to see you.  
+I want to listen to you.<br><br>
+
+I know you don’t have feelings for me now.  
+I pray every day to God:  
+“Please give some feelings for me to Dhanya.”  
+Then she will love me like I love her.<br><br>
+
+I love you, Bujji.  
+Please give me a chance, my heroine.  
+Happy Birthday, Bujji.<br><br>
+
+Don’t think I am mature while writing this letter.  
+My inner child wrote this.<br><br>
+
+Karthik
+</p>
 </div>
 
-
-<!-- =========================
-     PROPOSAL POPUP
-========================= -->
-
-<div id="proposalPopup">
-
-  <h1>
-    Will you marry me, Bujji? ❤️
-  </h1>
-
-  <button id="yesBtn">
-    YES ❤️
-  </button>
-
-  <button id="noBtn">
-    NO
-  </button>
+<h1>❤️ Will You Be Mine, Bujji? ❤️</h1>
 
 </div>
-
-
-<script>
-
-/* ==================================
-   MUSIC + START BUTTON
-================================== */
-
-const music = document.getElementById("bg-music");
-const startScreen = document.getElementById("startScreen");
-const startBtn = document.getElementById("startBtn");
-
-let musicStarted = false;
-
-startBtn.addEventListener("click", async function() {
-
-  try {
-
-    music.volume = 0.5;
-
-    await music.play();
-
-    musicStarted = true;
-
-    startScreen.style.display = "none";
-
-  } catch (error) {
-
-    console.error("Music could not start:", error);
-
-    alert("Please tap the button again to start the music ❤️");
-
-  }
-
-});
-
-
-/* ==================================
-   SLIDESHOW
-================================== */
-
-const slides = document.querySelectorAll(".slide");
-
-let index = 0;
-
-let slideTimer;
-
-let proposalShown = false;
-
-
-function showSlide() {
-
-  slides.forEach(function(slide) {
-
-    slide.classList.remove("active");
-
-  });
-
-  slides[index].classList.add("active");
-
-
-  /* Show proposal after final slide */
-
-  if (index === slides.length - 1 && !proposalShown) {
-
-    proposalShown = true;
-
-    setTimeout(function() {
-
-      document.getElementById("proposalPopup").style.display = "flex";
-
-    }, 7000);
-
-  }
-
-}
-
-
-/* Start slideshow after pressing button */
-
-startBtn.addEventListener("click", function() {
-
-  showSlide();
-
-  slideTimer = setInterval(function() {
-
-    if (index < slides.length - 1) {
-
-      index++;
-
-      showSlide();
-
-    }
-
-  }, 9000);
-
-});
-
-
-/* ==================================
-   ROSE EXPLOSION
-================================== */
-
-function dropRoses() {
-
-  for (let i = 0; i < 50; i++) {
-
-    const rose = document.createElement("div");
-
-    rose.classList.add("rose");
-
-    rose.style.left =
-      Math.random() * window.innerWidth + "px";
-
-    rose.style.animationDelay =
-      Math.random() * 2 + "s";
-
-    rose.style.width =
-      (25 + Math.random() * 30) + "px";
-
-    rose.style.height =
-      rose.style.width;
-
-    document.body.appendChild(rose);
-
-
-    setTimeout(function() {
-
-      rose.remove();
-
-    }, 6000);
-
-  }
-
-}
-
-
-/* ==================================
-   YES BUTTON
-================================== */
-
-document.getElementById("yesBtn").onclick = function() {
-
-  dropRoses();
-
-  document.getElementById("proposalPopup").innerHTML = `
-
-    <h1>
-      She Said YES! ❤️
-    </h1>
-
-    <p style="
-      font-size:24px;
-      color:#fff;
-      line-height:1.6;
-    ">
-      Thank you, my love. ❤️
-      <br><br>
-      You made my life complete.
-      <br>
-      I promise to cherish you forever.
-      <br><br>
-      — Karthik ❤️
-    </p>
-
-  `;
-
-};
-
-
-/* ==================================
-   NO BUTTON
-================================== */
-
-document.getElementById("noBtn").onclick = function() {
-
-  document.getElementById("proposalPopup").innerHTML = `
-
-    <h1>
-      It's okay, Bujji ❤️
-    </h1>
-
-    <p style="
-      font-size:22px;
-      line-height:1.6;
-    ">
-      I will still respect you
-      <br>
-      and care about you.
-      <br><br>
-      ❤️
-    </p>
-
-  `;
-
-};
-
-</script>
 
 </body>
 </html>
