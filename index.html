@@ -1,147 +1,384 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday My Bujji ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bujji </title>
 
 <style>
-body {
-  margin: 0;
-  background: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffeaf5;
+    color: #333;
+    overflow-x: hidden;
+  }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 15px;
-}
+  h1 {
+    text-align: center;
+    padding: 20px;
+    color: #c2185b;
+    font-size: 38px;
+  }
 
-img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 15px #ff4da6;
-  margin-bottom: 20px;
-}
+  /* Countdown */
+  #countdown {
+    text-align: center;
+    font-size: 24px;
+    color: #c2185b;
+    margin-bottom: 20px;
+  }
 
-h1 {
-  color: #ff4da6;
-  font-size: 30px;
-  margin-top: 20px;
-}
+  /* Music Button */
+  #musicBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #c2185b;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
 
-h2 {
-  color: #ff4da6;
-  font-size: 22px;
-}
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 900px;
+    position: relative;
+    margin: auto;
+  }
 
-.letter {
-  background: #111;
-  padding: 15px;
-  border-radius: 10px;
-  margin: 20px 0;
-  text-align: left;
-  line-height: 1.6;
-  box-shadow: 0 0 10px #ff4da6;
-}
+  .mySlides {
+    display: none;
+    text-align: center;
+  }
 
-audio {
-  width: 100%;
-  margin-top: 20px;
-  outline: none;
-  border-radius: 10px;
-}
+  .mySlides img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  .text-box {
+    background: #ffffff;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    padding: 16px;
+    color: #c2185b;
+    font-weight: bold;
+    font-size: 22px;
+    transition: 0.3s;
+  }
+
+  .next { right: 0; }
+  .prev:hover, .next:hover { color: #ff4f8b; }
+
+  .dot-container {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+    margin: 0 4px;
+    background-color: #f8b6d0;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .active, .dot:hover {
+    background-color: #c2185b;
+  }
+
+  /* Final Proposal Slide */
+  .proposal-slide {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 40px auto;
+    max-width: 900px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  .proposal-slide h2 {
+    font-size: 40px;
+    color: #c2185b;
+  }
+
+  .ring {
+    font-size: 80px;
+    animation: ringBounce 1.5s infinite;
+  }
+
+  @keyframes ringBounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+  }
+
+  .cake {
+    font-size: 80px;
+    animation: cakeGlow 2s infinite;
+  }
+
+  @keyframes cakeGlow {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+
+  /* YES / NO buttons */
+  .btn {
+    padding: 14px 28px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  .yes {
+    background: #c2185b;
+    color: white;
+  }
+
+  .no {
+    background: #ffb3c6;
+    color: #333;
+  }
+
+  /* Secret message */
+  #secret {
+    display: none;
+    text-align: center;
+    font-size: 26px;
+    color: #c2185b;
+    margin-top: 20px;
+  }
+
+  /* Falling petals */
+  .petal {
+    position: fixed;
+    top: -10px;
+    font-size: 24px;
+    color: #ff4f8b;
+    animation: fall 6s linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+  }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<h1>My Bujji 💍🎂</h1>
 
-<h1>Happy Birthday My Bujji ❤️</h1>
+<!-- Countdown -->
+<div id="countdown"></div>
 
-<!-- Background Music -->
-<audio controls autoplay loop>
-  <source src="/assets/audio.mp3" type="audio/mpeg">
+<script>
+  const targetDate = new Date("September 3, 2026 00:00:00").getTime();
+  setInterval(function() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+
+    document.getElementById("countdown").innerHTML =
+      "Countdown to our moment: " + days + " days, " + hours + " hours, " + mins + " minutes";
+  }, 1000);
+</script>
+
+<!-- Light Love Melody -->
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/9z7q4m.mp3" type="audio/mpeg">
 </audio>
 
-<!-- IMAGES -->
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/caf8f6d0e52903c896b1631514ad9a2df9b5e7ad/dhanya.1.jpeg" alt="Dhanya 1">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.2.jpeg" alt="Dhanya 2">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.3.jpeg" alt="Dhanya 3">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.4.jpeg" alt="Dhanya 4">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.5.jpeg" alt="Dhanya 5">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.6.jpeg" alt="Dhanya 6">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.7.jpeg" alt="Dhanya 7">
-<img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.8.jpeg" alt="Dhanya 8">
+<div id="musicBtn" onclick="toggleMusic()">Play Love Melody 🎵</div>
 
-<!-- LETTER 1 -->
-<div class="letter">
-<h2>Letter 1 ❤️</h2>
-<p>
-Hi Bujii,<br><br>
-Happy Birthday. I have dreamt many years ago this would happen.  
-When I saw you in university for the first time, I felt you are my future wife.  
-It started on May 21st and it continues. I love you so much.  
-I know you got hurt. Sorry… still I love you so much.<br><br>
+<script>
+function toggleMusic() {
+  var music = document.getElementById("bgMusic");
+  if (music.paused) {
+    music.play();
+    musicBtn.innerHTML = "Pause Melody ⏸️";
+  } else {
+    music.pause();
+    musicBtn.innerHTML = "Play Love Melody 🎵";
+  }
+}
+</script>
 
-I don’t know how to tell everything.  
-I know how many papers I wasted trying to explain my feelings.  
-I filled you in every inch of my heart.  
-I think about you always.  
-I wait for your call.  
-I pray to God every day to give you to me.<br><br>
+<!-- Falling petals -->
+<script>
+function createPetal() {
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.innerHTML = "🌸";
+  petal.style.left = Math.random() * window.innerWidth + "px";
+  petal.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  document.body.appendChild(petal);
 
-Don’t laugh at my grammar mistakes.  
-When I see you, my heart is full of joy.  
-When you finish your lunch, I get disappointed because I want more time with you.  
-I want to tell you: eat slowly… speak with me some more time.  
-I am dying here to talk with you, but I stop myself.
-</p>
+  setTimeout(() => petal.remove(), 6000);
+}
+setInterval(createPetal, 500);
+</script>
+
+<!-- Slideshow -->
+<div class="slideshow-container">
+
+  <!-- Slide 1 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/caf8f6d0e52903c896b1631514ad9a2df9b5e7ad/dhanya.1.jpeg">
+    <div class="text-box">
+      💖 *“I felt you are my future wife. It started on May 21st. It continues.”*
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.2.jpeg">
+    <div class="text-box">
+      🌹 *“I filled you with every inch of my heart.”*
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.3.jpeg">
+    <div class="text-box">
+      💍 *“I wait for your call. I always pray to God to give you to me.”*
+    </div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.4.jpeg">
+    <div class="text-box">
+      🎂 *“When you finish your lunch I get disappointed… I want to talk more with you.”*
+    </div>
+  </div>
+
+  <!-- Slide 5 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.5.jpeg">
+    <div class="text-box">
+      💖 *“Please give me a chance Bujji. I will be loyal to you.”*
+    </div>
+  </div>
+
+  <!-- Slide 6 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.6.jpeg">
+    <div class="text-box">
+      🌹 *“We build life together. We grow together.”*
+    </div>
+  </div>
+
+  <!-- Slide 7 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.7.jpeg">
+    <div class="text-box">
+      💍 *“You are my choice in everything.”*
+    </div>
+  </div>
+
+  <!-- Slide 8 -->
+  <div class="mySlides fade">
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.8.jpeg">
+    <div class="text-box">
+      🎂 *“Happy Birthday Bujji… my inner child wrote this.”*
+    </div>
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+
 </div>
 
-<!-- LETTER 2 -->
-<div class="letter">
-<h2>Letter 2 ❤️</h2>
-<p>
-Please give me a chance, Bujji.  
-Don’t think I am begging.  
-I love you so much.  
-I will never disappoint you.  
-I will be loyal to you.  
-I will always speak the truth.  
-You are my choice in everything.<br><br>
-
-We will build a life together.  
-We will grow together.  
-I want to be with you every time.  
-I want to see you.  
-I want to listen to you.<br><br>
-
-I know you don’t have feelings for me now.  
-I pray every day to God:  
-“Please give some feelings for me to Dhanya.”  
-Then she will love me like I love her.<br><br>
-
-I love you, Bujji.  
-Please give me a chance, my heroine.  
-Happy Birthday, Bujji.<br><br>
-
-Don’t think I am mature while writing this letter.  
-My inner child wrote this.<br><br>
-
-Karthik
-</p>
+<div class="dot-container">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+  <span class="dot" onclick="currentSlide(6)"></span>
+  <span class="dot" onclick="currentSlide(7)"></span>
+  <span class="dot" onclick="currentSlide(8)"></span>
 </div>
 
-<h1>❤️ Will You Be Mine, Bujji? ❤️</h1>
+<script>
+let slideIndex = 1;
+showSlides(slideIndex);
 
+function plusSlides(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+
+  for (i = 0; i < slides.length; i++) slides[i].style.display = "none";
+  for (i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
+
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+</script>
+
+<!-- FINAL PROPOSAL SLIDE -->
+<div class="proposal-slide">
+  <h2>Dhannya…</h2>
+  <p style="font-size:22px; line-height:1.6;">
+    From the first day I saw you,<br>
+    to every moment I think about you…<br>
+    my heart has only one answer.
+  </p>
+
+  <div class="ring">💍</div>
+  <div class="cake">🎂</div>
+
+  <h2>Will you marry me?</h2>
+
+  <button class="btn yes" onclick="showSecret()">YES 💖</button>
+  <button class="btn no">NO 😢</button>
+
+  <div id="secret">
+    You just made me the happiest man in the world, Bujji 💖  
+    I will love you forever.
+  </div>
 </div>
+
+<script>
+function showSecret() {
+  document.getElementById("secret").style.display = "block";
+}
+</script>
 
 </body>
 </html>
+
