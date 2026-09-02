@@ -123,7 +123,44 @@
 <body>
 
 <h1>My Bujji  💖</h1>
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Background Music</title>
+  <style>
+    /* Keep the audio element out of view */
+    #bg-audio { position: fixed; left: -9999px; width: 1px; height: 1px; }
+  </style>
+</head>
+<body>
+  <!-- Replace the src with any raw URL to an mp3 in your repo -->
+  <audio
+    id="bg-audio"
+    loop
+    preload="auto"
+    src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3"
+  ></audio>
 
+  <script>
+    // Attempt autoplay; fall back to waiting for a user gesture (required by many browsers)
+    const audio = document.getElementById('bg-audio');
+    audio.volume = 0.6; // adjust default volume (0.0 - 1.0)
+
+    function tryPlay() {
+      audio.play().catch(() => {
+        // If autoplay blocked, wait for user gesture
+        const startOnGesture = () => {
+          audio.play().catch(() => {});
+          window.removeEventListener('pointerdown', startOnGesture);
+          window.removeEventListener('keydown', startOnGesture);
+        };
+        window.addEventListener('pointerdown', startOnGesture, { once: true });
+        window.addEventListener('keydown', startOnGesture, { once: true });
+      });
+    }
+
+    // run immediately (may be blocked)
+    tryPlay();
+  </script>
 
 
 <!-- PAGE 0 – BIRTHDAY CELEBRATION -->
