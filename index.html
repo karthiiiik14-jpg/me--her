@@ -41,14 +41,13 @@
     margin-bottom: 20px;
   }
 
-  /* Accurate image display */
+  /* Perfect image display */
   .photo-frame img {
     width: 100%;
-    height: auto;              /* keeps natural aspect ratio */
-    max-width: 700px;          /* consistent max width */
+    max-height: 500px;
+    object-fit: contain;
+    background: #ffffff;
     border-radius: 12px;
-    display: block;
-    margin: auto;
   }
 
   .text-box {
@@ -250,4 +249,65 @@ function playMusic() {
 <!-- PAGE 8 -->
 <div class="page" id="page8">
   <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my
+    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.8.jpeg">
+  </div>
+  <div class="text-box">
+    “Happy Birthday Bujji… my inner child wrote this.”  
+    You make me feel young, alive, and full of hope.
+  </div>
+  <button class="nav-btn" onclick="prevPage(7)">⬅ Previous</button>
+  <button class="nav-btn" onclick="nextPage(9)">Next ➜</button>
+</div>
+
+<!-- PAGE 9 – FINAL PROPOSAL -->
+<div class="page" id="page9">
+  <div class="text-box" style="font-size:26px;">
+    Dhannya…  
+    From the first day I saw you,<br>
+    to every moment I think about you…<br>
+    my heart has only one answer.
+  </div>
+
+  <div style="font-size:80px;">💍</div>
+  <div style="font-size:80px;">🎂</div>
+
+  <div class="text-box" style="font-size:30px;">
+    Will you marry me?
+  </div>
+
+  <button class="yes-btn" onclick="celebrate()">YES 💖</button>
+  <button class="no-btn">NO 😢</button>
+
+  <button class="nav-btn" onclick="prevPage(8)">⬅ Previous</button>
+</div>
+
+<!-- CELEBRATION PAGE -->
+<div id="celebration">
+  <h2>She Said YES! 💖</h2>
+  <div class="emoji">🎉💍🎂💖</div>
+  <p>
+    You made me the happiest man in the world, Bujji.<br>
+    Our journey starts now… forever.
+  </p>
+</div>
+
+<script>
+function showPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById('page' + n).style.display = 'block';
+}
+
+function nextPage(n) { showPage(n); }
+function prevPage(n) { showPage(n); }
+
+function celebrate() {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById('celebration').style.display = 'block';
+  playMusic();
+}
+
+showPage(0);  // IMPORTANT: Birthday page first
+</script>
+
+</body>
+</html> 
