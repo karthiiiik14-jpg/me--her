@@ -132,63 +132,53 @@
 <body>
   <h1>My Bujji  💖</h1>
 
-  <!-- Hidden background audio:
-       - src uses the raw GitHub URL for the audio file
-       - playsinline helps iOS play inline instead of fullscreen
-       - no controls so it is not visible on phones or laptops -->
-  <audio id="bg-audio" loop preload="auto" playsinline src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3" aria-hidden="true"></audio>
+  <!-- Hidden background audio with mobile support:
+       - muted: required for autoplay on mobile, will unmute after user gesture
+       - playsinline: iOS Safari plays inline instead of fullscreen
+       - preload: ensures audio loads before playing
+       - crossorigin: allows audio to load from GitHub raw content
+  -->
+  <audio id="bg-audio" loop preload="auto" playsinline muted crossorigin="anonymous" src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3"></audio>
 
   <script>
-    // Background audio behavior:
-    // - Try autoplay immediately (desktop often allows this)
-    // - If autoplay is blocked (common on mobile), listen for the first user gesture
-    //   (pointerdown / touchstart / keydown) and start playback then.
-    // - No visible controls are shown. If playback fails even after gesture,
-    //   the console will show the error and playback won't start (network/file issue).
-
     (function () {
       const audio = document.getElementById('bg-audio');
       audio.volume = 0.6;
 
-      // Attempt immediate play (may be blocked)
-      audio.play().then(() => {
-        // autoplay succeeded
-        console.debug('Background audio autoplay succeeded.');
-      }).catch((err) => {
-        // Autoplay blocked — wait for first user gesture
-        console.debug('Autoplay blocked, waiting for user gesture to start audio.', err);
-
-        const userGestureHandler = async () => {
-          try {
-            await audio.play();
-            console.debug('Background audio started after user gesture.');
-          } catch (e) {
-            console.error('Background audio failed to start after user gesture:', e);
-          } finally {
-            removeGestureListeners();
-          }
-        };
-
-        const removeGestureListeners = () => {
-          window.removeEventListener('pointerdown', userGestureHandler);
-          window.removeEventListener('touchstart', userGestureHandler);
-          window.removeEventListener('keydown', userGestureHandler);
-        };
-
-        // Add listeners that will try to start audio on the first interaction
-        window.addEventListener('pointerdown', userGestureHandler, { once: true });
-        window.addEventListener('touchstart', userGestureHandler, { once: true });
-        window.addEventListener('keydown', userGestureHandler, { once: true });
-      });
-
-      // Expose a small helper used by the page when celebration happens
-      window.playBackgroundMusic = async function () {
+      // Function to unmute and play audio
+      const playAudio = async () => {
         try {
-          await audio.play();
-        } catch (e) {
-          console.warn('playBackgroundMusic: play() failed (maybe autoplay rules or network).', e);
+          audio.muted = false;
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+            console.debug('✓ Background audio playing');
+          }
+        } catch (err) {
+          console.error('✗ Audio playback failed:', err.message);
         }
       };
+
+      // Try to play immediately
+      playAudio().catch(() => {
+        console.debug('Autoplay blocked - waiting for user interaction');
+        
+        // Listen for user interaction (works on mobile & desktop)
+        const startAudioOnInteraction = () => {
+          playAudio();
+          // Remove listeners after first interaction
+          document.removeEventListener('click', startAudioOnInteraction);
+          document.removeEventListener('touchend', startAudioOnInteraction);
+          document.removeEventListener('keydown', startAudioOnInteraction);
+        };
+
+        document.addEventListener('click', startAudioOnInteraction, { once: true });
+        document.addEventListener('touchend', startAudioOnInteraction, { once: true });
+        document.addEventListener('keydown', startAudioOnInteraction, { once: true });
+      });
+
+      // Helper for celebration button
+      window.playBackgroundMusic = playAudio;
     })();
   </script>
 
@@ -359,16 +349,13 @@
     function prevPage(n) { showPage(n); }
 
     function celebrate() {
-      // hide pages, show celebration, and ensure music plays
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
       document.getElementById('celebration').style.display = 'block';
-      // playBackgroundMusic is defined in the background-audio script
       if (typeof window.playBackgroundMusic === 'function') {
         window.playBackgroundMusic();
       }
     }
 
-    // Show first page by default
     showPage(0);
   </script>
 </body>
