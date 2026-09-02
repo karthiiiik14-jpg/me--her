@@ -132,13 +132,12 @@
 <body>
   <h1>My Bujji  💖</h1>
 
-  <!-- Hidden background audio with mobile support:
-       - muted: required for autoplay on mobile, will unmute after user gesture
+  <!-- Background audio element
+       - Requires user interaction before playing (browser policy)
        - playsinline: iOS Safari plays inline instead of fullscreen
-       - preload: ensures audio loads before playing
        - crossorigin: allows audio to load from GitHub raw content
   -->
-  <audio id="bg-audio" loop preload="auto" playsinline muted crossorigin="anonymous" src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3"></audio>
+  <audio id="bg-audio" loop preload="auto" playsinline crossorigin="anonymous" src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3"></audio>
 
   <script>
     (function () {
@@ -148,36 +147,35 @@
       // Function to unmute and play audio
       const playAudio = async () => {
         try {
+          // Make sure audio is not muted before playing
           audio.muted = false;
           const playPromise = audio.play();
           if (playPromise !== undefined) {
             await playPromise;
             console.debug('✓ Background audio playing');
+            return true;
           }
         } catch (err) {
           console.error('✗ Audio playback failed:', err.message);
+          return false;
         }
       };
 
-      // Try to play immediately
-      playAudio().catch(() => {
-        console.debug('Autoplay blocked - waiting for user interaction');
-        
-        // Listen for user interaction (works on mobile & desktop)
-        const startAudioOnInteraction = () => {
-          playAudio();
-          // Remove listeners after first interaction
-          document.removeEventListener('click', startAudioOnInteraction);
-          document.removeEventListener('touchend', startAudioOnInteraction);
-          document.removeEventListener('keydown', startAudioOnInteraction);
-        };
+      // Function to start audio on first user interaction
+      const startAudioOnInteraction = () => {
+        playAudio();
+        // Remove listeners after first interaction
+        document.removeEventListener('click', startAudioOnInteraction);
+        document.removeEventListener('touchend', startAudioOnInteraction);
+        document.removeEventListener('keydown', startAudioOnInteraction);
+      };
 
-        document.addEventListener('click', startAudioOnInteraction, { once: true });
-        document.addEventListener('touchend', startAudioOnInteraction, { once: true });
-        document.addEventListener('keydown', startAudioOnInteraction, { once: true });
-      });
+      // Set up listeners for user interaction (click, touch, or key press)
+      document.addEventListener('click', startAudioOnInteraction, { once: true });
+      document.addEventListener('touchend', startAudioOnInteraction, { once: true });
+      document.addEventListener('keydown', startAudioOnInteraction, { once: true });
 
-      // Helper for celebration button
+      // Helper for celebration button to ensure audio plays
       window.playBackgroundMusic = playAudio;
     })();
   </script>
