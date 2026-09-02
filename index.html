@@ -1,340 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>My Bujji </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Background Music Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #ffeaf5;
-    color: #333;
-    text-align: center;
-  }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-  h1 {
-    color: #c2185b;
-    margin-top: 20px;
-    font-size: 36px;
-  }
+        .player-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            animation: slideIn 0.5s ease-out;
+        }
 
-  .page {
-    display: none;
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-    animation: fadeIn 0.6s ease;
-  }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-  /* Image frame */
-  .photo-frame {
-    background: white;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
-  }
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
 
-  /* Perfect image display */
-  .photo-frame img {
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    background: #ffffff;
-    border-radius: 12px;
-  }
+        .song-name {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-  .text-box {
-    background: #ffffff;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 12px;
-    font-size: 20px;
-    line-height: 1.6;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
+        audio {
+            width: 100%;
+            margin: 25px 0;
+            height: 50px;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
 
-  .nav-btn {
-    padding: 12px 25px;
-    margin: 20px 10px;
-    font-size: 18px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background: #c2185b;
-    color: white;
-  }
+        audio::-webkit-media-controls-panel {
+            background-color: #f0f0f0;
+        }
 
-  .nav-btn:hover {
-    background: #ff4f8b;
-  }
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
 
-  .yes-btn, .no-btn {
-    padding: 14px 30px;
-    font-size: 22px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
-  }
+        button {
+            flex: 1;
+            min-width: 100px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
 
-  .yes-btn {
-    background: #c2185b;
-    color: white;
-  }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
 
-  .no-btn {
-    background: #ffb3c6;
-    color: #333;
-  }
+        button:active {
+            transform: translateY(0);
+        }
 
-  /* Celebration Page */
-  #celebration {
-    display: none;
-    padding: 40px;
-    max-width: 900px;
-    margin: auto;
-    animation: fadeIn 1s ease;
-  }
+        button.active {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
 
-  #celebration h2 {
-    font-size: 40px;
-    color: #c2185b;
-  }
+        .volume-control {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
 
-  #celebration p {
-    font-size: 24px;
-    line-height: 1.6;
-  }
+        .volume-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+        }
 
-  #celebration .emoji {
-    font-size: 80px;
-    margin: 20px 0;
-  }
-</style>
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .status {
+            font-size: 18px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .time-display {
+            color: #666;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .feature-list {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .feature-list h3 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .feature-list ul {
+            list-style: none;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .feature-list li {
+            padding: 5px 0;
+        }
+
+        .feature-list li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .player-container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .controls {
+                gap: 10px;
+            }
+
+            button {
+                min-width: 80px;
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="player-container">
+        <div class="header">
+            <h1>🎵 Music Player</h1>
+            <p class="song-name">Ee Hridayam - Background Music</p>
+        </div>
 
-<h1>My Bujji  💖</h1>
-<meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Background Music</title>
-  <style>
-    /* Keep the audio element out of view */
-    #bg-audio { position: fixed; left: -9999px; width: 1px; height: 1px; }
-  </style>
-</head>
-<body>
-  <!-- Replace the src with any raw URL to an mp3 in your repo -->
-  <audio
-    id="bg-audio"
-    loop
-    preload="auto"
-    src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3"
-  ></audio>
+        <!-- Audio Player -->
+        <audio id="backgroundAudio" crossorigin="anonymous">
+            <source src="https://raw.githubusercontent.com/karthiiiik14-jpg/me--her/main/Ee%20Hridayam%20-%20NaaSongsHD.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
 
-  <script>
-    // Attempt autoplay; fall back to waiting for a user gesture (required by many browsers)
-    const audio = document.getElementById('bg-audio');
-    audio.volume = 0.6; // adjust default volume (0.0 - 1.0)
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
 
-    function tryPlay() {
-      audio.play().catch(() => {
-        // If autoplay blocked, wait for user gesture
-        const startOnGesture = () => {
-          audio.play().catch(() => {});
-          window.removeEventListener('pointerdown', startOnGesture);
-          window.removeEventListener('keydown', startOnGesture);
-        };
-        window.addEventListener('pointerdown', startOnGesture, { once: true });
-        window.addEventListener('keydown', startOnGesture, { once: true });
-      });
-    }
+        <!-- Control Buttons -->
+        <div class="controls">
+            <button id="playBtn" onclick="playAudio()" title="Play music">
+                ▶ Play
+            </button>
+            <button id="pauseBtn" onclick="pauseAudio()" title="Pause music">
+                ⏸ Pause
+            </button>
+            <button id="loopBtn" onclick="toggleLoop()" title="Toggle loop" data-loop="false">
+                🔁 Loop: OFF
+            </button>
+        </div>
 
-    // run immediately (may be blocked)
-    tryPlay();
-  </script>
+        <!-- Volume Control -->
+        <div class="volume-control">
+            <div class="volume-label">
+                🔊 Volume: <span id="volumeValue">70</span>%
+            </div>
+            <input type="range" id="volumeControl" min="0" max="100" value="70" onchange="setVolume(this.value)" oninput="setVolume(this.value)">
+        </div>
 
+        <!-- Info Section -->
+        <div class="info-section">
+            <div class="status" id="status">⏹ Ready to play</div>
+            <div class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+        </div>
 
-<!-- PAGE 0 – BIRTHDAY CELEBRATION -->
-<div class="page" id="page0">
-  <div class="text-box" style="font-size:28px;">
-    🎉 Happy Birthday My Bujji 🎉  
-    Today is your special day…  
-    A day filled with love, joy, and blessings.
-  </div>
+        <!-- Features -->
+        <div class="feature-list">
+            <h3>Features</h3>
+            <ul>
+                <li>Works on desktop & mobile browsers</li>
+                <li>Play, pause & loop controls</li>
+                <li>Volume adjustment</li>
+                <li>Progress tracking</li>
+                <li>No installation required</li>
+            </ul>
+        </div>
+    </div>
 
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.8.jpeg">
-  </div>
+    <script>
+        const audio = document.getElementById('backgroundAudio');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const loopBtn = document.getElementById('loopBtn');
+        const progressBar = document.getElementById('progressBar');
+        const volumeControl = document.getElementById('volumeControl');
+        const volumeValue = document.getElementById('volumeValue');
+        const status = document.getElementById('status');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        let isLooping = false;
 
-  <div class="text-box">
-    You deserve all the happiness in the world.  
-    I am grateful for every moment with you.  
-    Let’s begin your birthday celebration… 💖
-  </div>
+        // Play Audio
+        function playAudio() {
+            audio.play().catch(error => {
+                console.error('Play error:', error);
+                status.textContent = '❌ Error playing audio';
+            });
+            status.textContent = '▶️ Now Playing';
+            playBtn.style.opacity = '0.6';
+            pauseBtn.style.opacity = '1';
+        }
 
-  <button class="nav-btn" onclick="nextPage(1)">Start Celebration ➜</button>
-</div>
+        // Pause Audio
+        function pauseAudio() {
+            audio.pause();
+            status.textContent = '⏸️ Paused';
+            playBtn.style.opacity = '1';
+            pauseBtn.style.opacity = '0.6';
+        }
 
-<!-- PAGE 1 -->
-<div class="page" id="page1">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/caf8f6d0e52903c896b1631514ad9a2df9b5e7ad/dhanya.1.jpeg">
-  </div>
-  <div class="text-box">
-    “I felt you are my future wife. It started on May 21st. It continues.”  
-    You came into my life like a blessing, and from that moment, everything felt meaningful.
-  </div>
-  <button class="nav-btn" onclick="nextPage(2)">Next ➜</button>
-</div>
+        // Toggle Loop
+        function toggleLoop() {
+            isLooping = !isLooping;
+            audio.loop = isLooping;
+            loopBtn.textContent = isLooping ? '🔁 Loop: ON' : '🔁 Loop: OFF';
+            loopBtn.setAttribute('data-loop', isLooping);
+            loopBtn.classList.toggle('active', isLooping);
+        }
 
-<!-- PAGE 2 -->
-<div class="page" id="page2">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.2.jpeg">
-  </div>
-  <div class="text-box">
-    “I filled you with every inch of my heart.”  
-    Every thought, every dream, every hope — it all circles back to you.
-  </div>
-  <button class="nav-btn" onclick="prevPage(1)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(3)">Next ➜</button>
-</div>
+        // Set Volume
+        function setVolume(value) {
+            audio.volume = value / 100;
+            volumeValue.textContent = value;
+        }
 
-<!-- PAGE 3 -->
-<div class="page" id="page3">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.3.jpeg">
-  </div>
-  <div class="text-box">
-    “I wait for your call. I always pray to God to give you to me.”  
-    Your voice is the only thing that can calm my heart instantly.
-  </div>
-  <button class="nav-btn" onclick="prevPage(2)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(4)">Next ➜</button>
-</div>
+        // Update Progress Bar
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percentage = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = percentage + '%';
+                currentTimeDisplay.textContent = formatTime(audio.currentTime);
+            }
+        });
 
-<!-- PAGE 4 -->
-<div class="page" id="page4">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.4.jpeg">
-  </div>
-  <div class="text-box">
-    “When you finish your lunch I get disappointed… I want to talk more with you.”  
-    Even small moments with you feel precious.
-  </div>
-  <button class="nav-btn" onclick="prevPage(3)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(5)">Next ➜</button>
-</div>
+        // Update Duration
+        audio.addEventListener('loadedmetadata', () => {
+            durationDisplay.textContent = formatTime(audio.duration);
+        });
 
-<!-- PAGE 5 -->
-<div class="page" id="page5">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.5.jpeg">
-  </div>
-  <div class="text-box">
-    “Please give me a chance Bujji. I will be loyal to you.”  
-    My heart has chosen you, and it will never choose anyone else.
-  </div>
-  <button class="nav-btn" onclick="prevPage(4)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(6)">Next ➜</button>
-</div>
+        // Format Time
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
 
-<!-- PAGE 6 -->
-<div class="page" id="page6">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.6.jpeg">
-  </div>
-  <div class="text-box">
-    “We build life together. We grow together.”  
-    I want to walk every step of life with you beside me.
-  </div>
-  <button class="nav-btn" onclick="prevPage(5)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(7)">Next ➜</button>
-</div>
+        // Audio Ended
+        audio.addEventListener('ended', () => {
+            if (!isLooping) {
+                status.textContent = '✓ Finished';
+                playBtn.style.opacity = '1';
+                pauseBtn.style.opacity = '0.6';
+                progressBar.style.width = '0%';
+            }
+        });
 
-<!-- PAGE 7 -->
-<div class="page" id="page7">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.7.jpeg">
-  </div>
-  <div class="text-box">
-    “You are my choice in everything.”  
-    My heart, my future, my dreams — all point to you.
-  </div>
-  <button class="nav-btn" onclick="prevPage(6)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(8)">Next ➜</button>
-</div>
+        // Click on Progress Bar to Seek
+        document.querySelector('.progress-bar').addEventListener('click', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const percentage = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percentage * audio.duration;
+        });
 
-<!-- PAGE 8 -->
-<div class="page" id="page8">
-  <div class="photo-frame">
-    <img src="https://raw.githubusercontent.com/karthiiiik14-jpg/my-future/main/d.8.jpeg">
-  </div>
-  <div class="text-box">
-    “Happy Birthday Bujji… my inner child wrote this.”  
-    You make me feel young, alive, and full of hope.
-  </div>
-  <button class="nav-btn" onclick="prevPage(7)">⬅ Previous</button>
-  <button class="nav-btn" onclick="nextPage(9)">Next ➜</button>
-</div>
+        // Initialize Volume
+        setVolume(volumeControl.value);
 
-<!-- PAGE 9 – FINAL PROPOSAL -->
-<div class="page" id="page9">
-  <div class="text-box" style="font-size:26px;">
-    Dhannya…  
-    From the first day I saw you,<br>
-    to every moment I think about you…<br>
-    my heart has only one answer.
-  </div>
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (audio.paused) {
+                    playAudio();
+                } else {
+                    pauseAudio();
+                }
+            }
+        });
 
-  <div style="font-size:80px;">💍</div>
-  <div style="font-size:80px;">🎂</div>
-
-  <div class="text-box" style="font-size:30px;">
-    Will you marry me?
-  </div>
-
-  <button class="yes-btn" onclick="celebrate()">YES 💖</button>
-  <button class="no-btn">NO 😢</button>
-
-  <button class="nav-btn" onclick="prevPage(8)">⬅ Previous</button>
-</div>
-
-<!-- CELEBRATION PAGE -->
-<div id="celebration">
-  <h2>She Said YES! 💖</h2>
-  <div class="emoji">🎉💍🎂💖</div>
-  <p>
-    You made me the happiest man in the world, Bujji.<br>
-    Our journey starts now… forever.
-  </p>
-</div>
-
-<script>
-function showPage(n) {
-  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-  document.getElementById('page' + n).style.display = 'block';
-}
-
-function nextPage(n) { showPage(n); }
-function prevPage(n) { showPage(n); }
-
-function celebrate() {
-  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-  document.getElementById('celebration').style.display = 'block';
-  playMusic();
-}
-
-showPage(0);  // IMPORTANT: Birthday page first
-</script>
-
-</body> </html>
+        // Initial State
+        playBtn.style.opacity = '1';
+        pauseBtn.style.opacity = '0.6';
+    </script>
+</body>
+</html>
