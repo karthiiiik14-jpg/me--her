@@ -418,11 +418,13 @@
     <button class="nav-btn" onclick="goBack()">← Go Back</button>
   </div>
 
+  <!-- Load Cognito Forms SDK -->
+  <script src="https://d.cognitoforms.com/forms/api.js"></script>
+
   <script>
-    // FORMSPREE CONFIGURATION
-    // Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
-    // Get it from https://formspree.io
-    const FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // Change this to your Formspree ID
+    // COGNITO FORMS CONFIGURATION
+    const COGNITO_FORM_NAME = 'MyBujjiProposal'; // Your Cognito Form name
+    const COGNITO_ACCOUNT = 'POSHALAKARTHIK'; // Your Cognito account
 
     function showPage(n) {
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
@@ -440,28 +442,25 @@
       showPage(n); 
     }
 
-    // Submit response to Formspree
-    function submitResponse(response) {
-      if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
-        console.warn('⚠️ Formspree ID not configured. Update FORMSPREE_ID in the code.');
-        return;
+    // Submit response to Cognito Forms
+    function submitToCognitoForm(response) {
+      try {
+        // Use Cognito Forms API to submit data
+        if (window.Cognito) {
+          window.Cognito.load('forms', {
+            entry: {
+              'Response': response,
+              'Timestamp': new Date().toString(),
+              'Message': 'My Bujji Birthday Proposal'
+            }
+          });
+          console.log('✓ Response submitted to Cognito Forms:', response);
+        } else {
+          console.warn('⚠️ Cognito Forms SDK not loaded yet');
+        }
+      } catch (error) {
+        console.error('✗ Error submitting to Cognito Forms:', error);
       }
-
-      const formData = new FormData();
-      formData.append('response', response);
-      formData.append('timestamp', new Date().toString());
-      formData.append('message', 'My Bujji Birthday Proposal Response');
-
-      fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        console.log('✓ Response submitted to Formspree:', response.status);
-      })
-      .catch(error => {
-        console.error('✗ Error submitting to Formspree:', error);
-      });
     }
 
     function celebrate() {
@@ -476,7 +475,7 @@
 
       // Log and submit YES response
       console.log("✓ SHE SAID YES! Time:", new Date().toString());
-      submitResponse('YES');
+      submitToCognitoForm('YES');
 
       // Hide spinner after 2 seconds
       setTimeout(() => {
@@ -493,7 +492,7 @@
       // Log and submit NO response
       console.log("✗ She said NO - Time:", new Date().toString());
       console.log("Message: I will come back again to get you in my life");
-      submitResponse('NO');
+      submitToCognitoForm('NO');
 
       // Hide spinner after 2 seconds
       setTimeout(() => {
