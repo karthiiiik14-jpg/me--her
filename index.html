@@ -363,8 +363,8 @@
       Will you marry me?
     </div>
 
-    <button class="yes-btn" onclick="celebrate()">YES 💖</button>
-    <button class="no-btn" onclick="comebackMessage()">NO 😢</button>
+    <button class="yes-btn" onclick="submitYes()">YES 💖</button>
+    <button class="no-btn" onclick="submitNo()">NO 😢</button>
 
     <button class="nav-btn" onclick="prevPage(8)">⬅ Previous</button>
   </div>
@@ -400,6 +400,13 @@
   </div>
 
   <script>
+    // Google Form URL - Replace with your actual Google Form URL
+    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSf_example/formResponse";
+    
+    // Form field IDs - You'll need to update these with your actual field IDs
+    const RESPONSE_FIELD_ID = "entry.123456789";
+    const TIMESTAMP_FIELD_ID = "entry.987654321";
+
     function showPage(n) {
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
       document.getElementById('celebration').style.display = 'none';
@@ -411,7 +418,11 @@
     function nextPage(n) { showPage(n); }
     function prevPage(n) { showPage(n); }
 
-    function celebrate() {
+    function submitYes() {
+      // Log response to Google Form
+      submitToGoogleForm("YES - She said YES! 🎉");
+      
+      // Show celebration page
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
       document.getElementById('celebration').style.display = 'block';
       if (typeof window.playBackgroundMusic === 'function') {
@@ -419,9 +430,26 @@
       }
     }
 
-    function comebackMessage() {
+    function submitNo() {
+      // Log response to Google Form
+      submitToGoogleForm("NO - She needs more time 💔");
+      
+      // Show comeback page
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
       document.getElementById('comeback').style.display = 'block';
+    }
+
+    function submitToGoogleForm(response) {
+      const formData = new FormData();
+      formData.append(RESPONSE_FIELD_ID, response);
+      formData.append(TIMESTAMP_FIELD_ID, new Date().toLocaleString());
+
+      // Send to Google Form (silent submission)
+      fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      }).catch(err => console.debug('Response logged:', response));
     }
 
     function goBackToProposal() {
