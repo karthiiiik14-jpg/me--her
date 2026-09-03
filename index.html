@@ -100,7 +100,8 @@
     }
 
     .no-btn:hover {
-      background: #ff99b9;
+      background: #ff7fa0;
+      color: white;
     }
 
     /* Celebration Page */
@@ -127,8 +128,8 @@
       margin: 20px 0;
     }
 
-    /* Comeback Page */
-    #comeback {
+    /* Not Now / Comeback Page */
+    #notNow {
       display: none;
       padding: 40px;
       max-width: 900px;
@@ -136,25 +137,25 @@
       animation: fadeIn 1s ease;
     }
 
-    #comeback h2 {
+    #notNow h2 {
       font-size: 40px;
       color: #c2185b;
       margin-bottom: 20px;
     }
 
-    #comeback p {
+    #notNow p {
       font-size: 24px;
       line-height: 1.8;
       color: #666;
       margin: 15px 0;
     }
 
-    #comeback .emoji {
+    #notNow .emoji {
       font-size: 80px;
       margin: 30px 0;
     }
 
-    #comeback .comeback-text {
+    #notNow .comeback-text {
       background: #ffffff;
       padding: 30px;
       border-radius: 15px;
@@ -363,8 +364,8 @@
       Will you marry me?
     </div>
 
-    <button class="yes-btn" onclick="submitYes()">YES 💖</button>
-    <button class="no-btn" onclick="submitNo()">NO 😢</button>
+    <button class="yes-btn" onclick="celebrate()">YES 💖</button>
+    <button class="no-btn" onclick="handleNo()">NO 😢</button>
 
     <button class="nav-btn" onclick="prevPage(8)">⬅ Previous</button>
   </div>
@@ -379,80 +380,63 @@
     </p>
   </div>
 
-  <!-- COMEBACK PAGE -->
-  <div id="comeback">
-    <h2>I'll Come Back For You 💔</h2>
-    <div class="emoji">⏳💝</div>
+  <!-- NOT NOW PAGE -->
+  <div id="notNow">
+    <h2>I Will Wait For You… 💖</h2>
+    <div class="emoji">⏳💔💕</div>
     <div class="comeback-text">
       <p>
-        I understand... Not today, but that's okay. 💙
+        I understand, Bujji.<br>
+        I will come back again to get you in my life.
       </p>
       <p>
-        My heart won't stop believing in us.<br>
-        I'll wait for you, I'll improve myself,<br>
-        and I'll come back to get you in my life.
+        Because real love is patient, and real love waits.
       </p>
-      <p style="font-size: 28px; margin-top: 30px;">
-        You're worth the wait. 🌹
+      <p style="font-size: 20px; margin-top: 30px;">
+        When you're ready, I'll be here... always. 💖
       </p>
     </div>
-    <button class="nav-btn" onclick="goBackToProposal()">← Go Back</button>
+    <button class="nav-btn" onclick="goBack()">← Go Back</button>
   </div>
 
   <script>
-    // Google Form URL - Replace with your actual Google Form URL
-    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSf_example/formResponse";
-    
-    // Form field IDs - You'll need to update these with your actual field IDs
-    const RESPONSE_FIELD_ID = "entry.123456789";
-    const TIMESTAMP_FIELD_ID = "entry.987654321";
-
     function showPage(n) {
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
       document.getElementById('celebration').style.display = 'none';
-      document.getElementById('comeback').style.display = 'none';
+      document.getElementById('notNow').style.display = 'none';
       const el = document.getElementById('page' + n);
       if (el) el.style.display = 'block';
     }
 
-    function nextPage(n) { showPage(n); }
-    function prevPage(n) { showPage(n); }
+    function nextPage(n) { 
+      showPage(n); 
+    }
 
-    function submitYes() {
-      // Log response to Google Form
-      submitToGoogleForm("YES - She said YES! 🎉");
-      
-      // Show celebration page
+    function prevPage(n) { 
+      showPage(n); 
+    }
+
+    function celebrate() {
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+      document.getElementById('notNow').style.display = 'none';
       document.getElementById('celebration').style.display = 'block';
       if (typeof window.playBackgroundMusic === 'function') {
         window.playBackgroundMusic();
       }
+      // Log that she said YES
+      console.log("✓ SHE SAID YES! Time:", new Date().toString());
     }
 
-    function submitNo() {
-      // Log response to Google Form
-      submitToGoogleForm("NO - She needs more time 💔");
-      
-      // Show comeback page
+    function handleNo() {
       document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-      document.getElementById('comeback').style.display = 'block';
+      document.getElementById('celebration').style.display = 'none';
+      document.getElementById('notNow').style.display = 'block';
+      // Log that she said NO
+      console.log("✗ She said NO - Time:", new Date().toString());
+      console.log("Message: I will come back again to get you in my life");
     }
 
-    function submitToGoogleForm(response) {
-      const formData = new FormData();
-      formData.append(RESPONSE_FIELD_ID, response);
-      formData.append(TIMESTAMP_FIELD_ID, new Date().toLocaleString());
-
-      // Send to Google Form (silent submission)
-      fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: formData
-      }).catch(err => console.debug('Response logged:', response));
-    }
-
-    function goBackToProposal() {
+    function goBack() {
       showPage(9);
     }
 
